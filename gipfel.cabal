@@ -1,0 +1,47 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           gipfel
+version:        23.1
+category:       Web
+homepage:       https://github.com/ners/Gipfel#readme
+bug-reports:    https://github.com/ners/Gipfel/issues
+maintainer:     ners <ners@gmx.ch>
+license:        Apache-2.0
+license-file:   LICENCE
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/ners/Gipfel
+
+executable gipfel
+  main-is: Main.hs
+  other-modules:
+      Paths_gipfel
+  hs-source-dirs:
+      src
+  default-extensions:
+      ApplicativeDo
+      DerivingStrategies
+      DeriveAnyClass
+      DerivingVia
+      DefaultSignatures
+      ExplicitNamespaces
+      OverloadedStrings
+      RecordWildCards
+      DeriveGeneric
+      DataKinds
+      TypeFamilies
+  ghc-options: -Weverything -Wno-safe -Wno-unsafe -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-missing-kind-signatures -Wno-missing-export-lists -Wno-missing-import-lists -Wno-missed-specialisations -Wno-all-missed-specialisations -Wno-orphans
+  build-depends:
+      base
+    , servant
+    , servant-server
+    , text
+    , wai
+    , warp
+  default-language: GHC2021
