@@ -46,6 +46,7 @@ library
         base,
         bytestring,
         gipfel-api,
+        haxl,
         text
     hs-source-dirs:   src
 
