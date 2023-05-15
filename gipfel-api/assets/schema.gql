@@ -1,0 +1,23 @@
+type Url {
+	stub: String!
+	target: String!
+}
+
+type Query {
+	getUrls: [Url!]!
+	getUrlByStub(stub: String!): Url!
+}
+
+type Mutation {
+	createUrl(stub: String!, target: String!): Url!
+}
+
+type Subscription {
+	newUrl: Url!
+}
+
+schema {
+	query: Query
+	mutation: Mutation
+	subscription: Subscription
+}

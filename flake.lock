@@ -18,7 +18,24 @@
     },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "servant": "servant"
+      }
+    },
+    "servant": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1682276706,
+        "narHash": "sha256-p0QHDFLs6dOIoPILrC20iYplPaFz/7YUssoKIi2iYzI=",
+        "owner": "haskell-servant",
+        "repo": "servant",
+        "rev": "7ae787371333556a7b84778631ed91d1d73e8370",
+        "type": "github"
+      },
+      "original": {
+        "owner": "haskell-servant",
+        "repo": "servant",
+        "type": "github"
       }
     }
   },

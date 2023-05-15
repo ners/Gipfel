@@ -1,8 +1,7 @@
 module Main where
 
-import qualified MyLib (someFunc)
+import Gipfel.Server qualified as Gipfel
+import Prelude
 
 main :: IO ()
-main = do
-  putStrLn "Hello, Haskell!"
-  MyLib.someFunc
+main = Gipfel.server

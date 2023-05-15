@@ -1,10 +1,10 @@
 cabal-version:      3.4
-name:               gipfel-server
+name:               gipfel-api
 version:            0.1.0.0
 synopsis:           The tasty URL shortener 🥐
 homepage:           https://github.com/ners/Gipfel
 license:            Apache-2.0
-license-file:       LICENCE
+license-file:       LICENSE
 author:             ners
 maintainer:         ners@gmx.ch
 category:           Web
@@ -41,29 +41,26 @@ common common
 
 library
     import:           common
-    exposed-modules:  Gipfel.Server
+    exposed-modules:
+        Gipfel.GqlSchema,
+        Servant.Extra
     build-depends:
         base,
         bytestring,
-        gipfel-api,
+        file-embed,
+        http-media,
+        morpheus-graphql,
+        servant,
+        servant-openapi3,
         text
     hs-source-dirs:   src
 
-executable gipfel-server
-    import:           common
-    main-is:          Main.hs
-    build-depends:
-        base,
-        gipfel-server
-
-    hs-source-dirs:   app
-
-test-suite gipfel-server-test
+test-suite gipfel-api-test
     import:           common
     type:             exitcode-stdio-1.0
     hs-source-dirs:   test
     main-is:          Spec.hs
     build-depends:
         base,
-        gipfel-server,
+        gipfel-api,
         hspec
