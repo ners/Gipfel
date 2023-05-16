@@ -8,6 +8,14 @@
     url = "github:haskell-servant/servant";
     flake = false;
   };
+  inputs.bsb-http-chunked = {
+    url = "github:sjakobi/bsb-http-chunked";
+    flake = false;
+  };
+  inputs.wai = {
+    url = "github:yesodweb/wai";
+    flake = false;
+  };
 
   outputs = inputs:
     with builtins;
@@ -43,13 +51,30 @@
                } // lib.optionalAttrs (lib.versionAtLeast super.ghc.version "9.4") {
                 relude = dontCheck (doJailbreak super.relude_1_2_0_0);
                } // lib.optionalAttrs (lib.versionAtLeast super.ghc.version "9.6") {
+                auto-update = self.callCabal2nix "auto-update" "${inputs.wai}/auto-update" {};
+                bsb-http-chunked = self.callCabal2nix "bsb-http-chunked" inputs.bsb-http-chunked {};
                 fourmolu = super.fourmolu_0_12_0_0;
+                http2 = super.http2_4_1_2;
+                mime-types = self.callCabal2nix "mime-types" "${inputs.wai}/mime-types" {};
                 modern-uri = doJailbreak super.modern-uri;
+                monad-metrics = doJailbreak super.monad-metrics;
+                recv = self.callCabal2nix "recv" "${inputs.wai}/recv" {};
                 req = doJailbreak super.req;
                 servant = doJailbreak (self.callCabal2nix "servant" "${inputs.servant}/servant" {});
                 servant-openapi3 = doJailbreak super.servant-openapi3;
+                servant-server = dontCheck (doJailbreak (super.servant-server));
+                time-manager = self.callCabal2nix "time-manager" "${inputs.wai}/time-manager" {};
                 vector = dontCheck (doJailbreak (super.vector_0_13_0_0));
                 vector-algorithms = super.vector-algorithms_0_9_0_1;
+                wai = self.callCabal2nix "wai" "${inputs.wai}/wai" {};
+                wai-app-static = self.callCabal2nix "wai-app-static" "${inputs.wai}/wai-app-static" {};
+                wai-conduit = self.callCabal2nix "wai-conduit" "${inputs.wai}/wai-conduit" {};
+                wai-extra = self.callCabal2nix "wai-extra" "${inputs.wai}/wai-extra" {};
+                wai-http2-extra = self.callCabal2nix "wai-http2-extra" "${inputs.wai}/wai-http2-extra" {};
+                wai-websockets = self.callCabal2nix "wai-websockets" "${inputs.wai}/wai-websockets" {};
+                warp = dontCheck (self.callCabal2nix "warp" "${inputs.wai}/warp" {});
+                warp-quic = self.callCabal2nix "warp-quic" "${inputs.wai}/warp-quic" {};
+                warp-tls = self.callCabal2nix "warp-tls" "${inputs.wai}/warp-tls" {};
              };
            }
          }: {

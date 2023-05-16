@@ -1,7 +1,7 @@
 module Main where
 
-import Gipfel.Server qualified as Gipfel
+import Gipfel.Server (runServer)
 import Prelude
 
 main :: IO ()
-main = Gipfel.server
+main = runServer

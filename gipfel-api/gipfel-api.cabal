@@ -42,6 +42,7 @@ common common
 library
     import:           common
     exposed-modules:
+        Gipfel.Api,
         Gipfel.GqlSchema,
         Servant.Extra
     build-depends:

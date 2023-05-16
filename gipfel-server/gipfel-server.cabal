@@ -41,13 +41,30 @@ common common
 
 library
     import:           common
-    exposed-modules:  Gipfel.Server
+    exposed-modules:
+        Gipfel.App,
+        Gipfel.RootResolver,
+        Gipfel.Server
     build-depends:
         base,
         bytestring,
+        generic-lens,
         gipfel-api,
         haxl,
-        text
+        lens,
+        monad-logger,
+        monad-metrics,
+        morpheus-graphql,
+        morpheus-graphql-subscriptions,
+        mtl,
+        servant-server,
+        text,
+        transformers,
+        unliftio,
+        unliftio-core,
+        wai-websockets,
+        warp,
+        websockets
     hs-source-dirs:   src
 
 executable gipfel-server

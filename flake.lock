@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "bsb-http-chunked": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1666195516,
+        "narHash": "sha256-+UDxfywXPjxPuFupcB8veyMYWVQCKha64me9HADtFGg=",
+        "owner": "sjakobi",
+        "repo": "bsb-http-chunked",
+        "rev": "c0ecd72fe2beb1cf7de9340cc8b4a31045460532",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sjakobi",
+        "repo": "bsb-http-chunked",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -18,11 +34,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1684049129,
-        "narHash": "sha256-7WB9LpnPNAS8oI7hMoHeKLNhRX7k3CI9uWBRSfmOCCE=",
+        "lastModified": 1684139381,
+        "narHash": "sha256-YPLMeYE+UzxxP0qbkBzv3RBDvyGR5I4d7v2n8dI3+fY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "0470f36b02ef01d4f43c641bbf07020bcab71bf1",
+        "rev": "17a689596b72d1906883484838eb1aaf51ab8001",
         "type": "github"
       },
       "original": {
@@ -34,9 +50,11 @@
     },
     "root": {
       "inputs": {
+        "bsb-http-chunked": "bsb-http-chunked",
         "flake-compat": "flake-compat",
         "nixpkgs": "nixpkgs",
-        "servant": "servant"
+        "servant": "servant",
+        "wai": "wai"
       }
     },
     "servant": {
@@ -52,6 +70,22 @@
       "original": {
         "owner": "haskell-servant",
         "repo": "servant",
+        "type": "github"
+      }
+    },
+    "wai": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1680052379,
+        "narHash": "sha256-QZGvDzL1gfhKpKTgsvrGjAyFzea4pAmGs8tP5tZ2fuI=",
+        "owner": "yesodweb",
+        "repo": "wai",
+        "rev": "cac6fe68534f697180ff3a06a4c75604a6669a51",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yesodweb",
+        "repo": "wai",
         "type": "github"
       }
     }

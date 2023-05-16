@@ -8,18 +8,15 @@ import Servant.Extra (HTML, RawHtml)
 
 type API = NamedRoutes GipfelAPI
 
-data GipfelAPI mode = GipfelApi
-    { resolver :: mode :- NamedRoutes ResolverAPI
-    , gql :: mode :- "gql" :> GqlAPI
+data GipfelAPI mode = GipfelAPI
+    { gql :: mode :- "gql" :> NamedRoutes GqlAPI
+    , url :: mode :- Capture "stub" Text :> Get '[HTML] RawHtml
     }
     deriving stock (Generic)
 
-data ResolverAPI mode = ResolverAPI
-    { resolveUrl :: mode :- Capture "stub" Text :> Get '[HTML] RawHtml
+data GqlAPI mode = GqlAPI
+    { query :: mode :- ReqBody '[JSON] GQLRequest :> Post '[JSON] GQLResponse
+    , schema :: mode :- "schema" :> Get '[PlainText] Text
+    , playground :: mode :- "playground" :> Get '[HTML] RawHtml
     }
     deriving stock (Generic)
-
-type GqlAPI =
-    (ReqBody '[JSON] GQLRequest :> Post '[JSON] GQLResponse)
-        :<|> ("schema" :> Get '[PlainText] Text)
-        :<|> (Get '[HTML] RawHtml)
