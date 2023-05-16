@@ -45,6 +45,8 @@ library
         Gipfel.App,
         Gipfel.RootResolver,
         Gipfel.Server
+    other-modules:
+        Data.Morpheus.Extra
     build-depends:
         base,
         bytestring,
@@ -57,6 +59,8 @@ library
         morpheus-graphql,
         morpheus-graphql-subscriptions,
         mtl,
+        openapi3,
+        servant-openapi3,
         servant-server,
         text,
         transformers,

@@ -3,7 +3,7 @@ module Gipfel.App where
 import Control.Monad.IO.Class (MonadIO)
 import Control.Monad.IO.Unlift (MonadUnliftIO)
 import Control.Monad.Logger (MonadLogger, MonadLoggerIO)
-import Control.Monad.Metrics (MonadMetrics (getMetrics), Metrics)
+import Control.Monad.Metrics (Metrics, MonadMetrics (getMetrics))
 import Control.Monad.Reader (MonadReader)
 import Control.Monad.Trans.Reader (ReaderT, runReaderT)
 import GHC.Generics (Generic)
@@ -28,7 +28,7 @@ newtype AppT m a = App {runApp :: ReaderT AppState m a}
 
 type App = AppT IO
 
-instance Monad m => MonadMetrics (AppT m) where
+instance (Monad m) => MonadMetrics (AppT m) where
     getMetrics :: AppT m Metrics
     getMetrics = error "getMetrics: not yet implemented"
 

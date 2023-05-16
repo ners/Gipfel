@@ -1,16 +1,30 @@
-module Gipfel.Api where
+module Gipfel.Api
+    ( module Servant.Extra
+    , API
+    , GipfelAPI (..)
+    , GipfelDocumentedAPI (..)
+    , GqlAPI (..)
+    )
+where
 
 import Data.Morpheus.Types
+import Data.OpenApi (OpenApi)
 import Data.Text (Text)
 import GHC.Generics (Generic)
 import Servant.API
-import Servant.Extra (HTML, RawHtml)
+import Servant.Extra
 
-type API = NamedRoutes GipfelAPI
+type API = NamedRoutes GipfelDocumentedAPI
 
 data GipfelAPI mode = GipfelAPI
     { gql :: mode :- "gql" :> NamedRoutes GqlAPI
     , url :: mode :- Capture "stub" Text :> Get '[HTML] RawHtml
+    }
+    deriving stock (Generic)
+
+data GipfelDocumentedAPI mode = GipfelDocumentedAPI
+    { doc :: mode :- "doc" :> Get '[JSON] OpenApi
+    , api :: mode :- NamedRoutes GipfelAPI
     }
     deriving stock (Generic)
 

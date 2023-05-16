@@ -4,7 +4,7 @@ version:            0.1.0.0
 synopsis:           The tasty URL shortener 🥐
 homepage:           https://github.com/ners/Gipfel
 license:            Apache-2.0
-license-file:       LICENSE
+license-file:       LICENCE
 author:             ners
 maintainer:         ners@gmx.ch
 category:           Web
@@ -43,7 +43,8 @@ library
     import:           common
     exposed-modules:
         Gipfel.Api,
-        Gipfel.GqlSchema,
+        Gipfel.GqlSchema
+    other-modules:
         Servant.Extra
     build-depends:
         base,
@@ -51,6 +52,7 @@ library
         file-embed,
         http-media,
         morpheus-graphql,
+        openapi3,
         servant,
         servant-openapi3,
         text

@@ -1,12 +1,16 @@
+{-# OPTIONS_GHC -Wno-orphans #-}
+
 module Gipfel.Server where
 
+import Control.Lens
 import Control.Monad.IO.Class (liftIO)
-import Data.Function ((&))
 import Data.Kind (Type)
 import Data.Morpheus (deriveApp, httpPlayground)
 import Data.Morpheus qualified as Morpheus
+import Data.Morpheus.Extra ()
 import Data.Morpheus.Subscriptions (PubApp, httpPubApp, webSocketsApp)
 import Data.Morpheus.Types (render)
+import Data.OpenApi (OpenApi, description, info, title, version)
 import Data.Text (Text)
 import Data.Text.Lazy qualified as Text.Lazy
 import Data.Text.Lazy.Encoding qualified as Text.Lazy
@@ -16,8 +20,8 @@ import Gipfel.RootResolver
 import Network.Wai.Handler.Warp (defaultSettings, runSettings, setPort)
 import Network.Wai.Handler.WebSockets (websocketsOr)
 import Network.WebSockets (ServerApp, defaultConnectionOptions)
-import Servant (Proxy (Proxy), Server, serve)
-import Servant.Extra (RawHtml (RawHtml))
+import Servant (NamedRoutes, Proxy (Proxy), Server, serve)
+import Servant.OpenApi (toOpenApi)
 import Servant.Server (Handler, HasServer)
 import Servant.Server.Generic (AsServer)
 import Prelude
@@ -30,7 +34,7 @@ startServer
     -> Server api
     -> App ()
 startServer wsApp proxy api = do
-    let settings = defaultSettings & setPort 8080
+    let settings = defaultSettings & setPort 3000
     liftIO $
         runSettings settings $
             websocketsOr defaultConnectionOptions wsApp (serve proxy api)
@@ -58,12 +62,24 @@ gqlApp = deriveApp rootResolver
 server
     :: AppState
     -> [EVENT -> App ()]
-    -> GipfelAPI AsServer
+    -> GipfelDocumentedAPI AsServer
 server state publish =
-    GipfelAPI
-        { gql = gqlServer state publish gqlApp
-        , url = urlHandler
+    GipfelDocumentedAPI
+        { doc = docHandler
+        , api =
+            GipfelAPI
+                { gql = gqlServer state publish gqlApp
+                , url = urlHandler
+                }
         }
+
+docHandler :: Handler OpenApi
+docHandler =
+    pure $
+        toOpenApi (Proxy :: Proxy (NamedRoutes GipfelAPI))
+            & info . title .~ "Gipfel API"
+            & info . version .~ "1.0.0"
+            & info . description ?~ "API endpoints for the Gipfel API"
 
 urlHandler :: Text -> Handler RawHtml
 urlHandler = error "urlHandler: not yet implemented"
